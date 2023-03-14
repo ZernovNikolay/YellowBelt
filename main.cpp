@@ -69,7 +69,7 @@ public:
                         }
                         else {
                             
-                            upgraded_tasks[TaskStatus::IN_PROGRESS] = task_count;
+                            upgraded_tasks[TaskStatus::IN_PROGRESS] = task_count + t[TaskStatus::IN_PROGRESS];
                             updated_tasks[TaskStatus::NEW] = task_old - task_count;
                             task_count = 0;
 
@@ -92,7 +92,7 @@ public:
                         }
                         else {
                             
-                            upgraded_tasks[TaskStatus::TESTING] = task_count;
+                            upgraded_tasks[TaskStatus::TESTING] = task_count + t[TaskStatus::TESTING];
                             updated_tasks[TaskStatus::IN_PROGRESS] = task_old - task_count;
                             task_count = 0;
 
@@ -115,7 +115,7 @@ public:
                         }
                         else {
                             
-                            upgraded_tasks[TaskStatus::DONE] = task_count;
+                            upgraded_tasks[TaskStatus::DONE] = task_count + t[TaskStatus::DONE];
                             updated_tasks[TaskStatus::TESTING] = task_old - task_count;
                             task_count = 0;
 
@@ -167,7 +167,7 @@ void PrintTasksInfo(TasksInfo tasks_info) {
 int main() {
     TeamTasks tasks;
     tasks.AddNewTask("Ilia");
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < 3; ++i) {
         tasks.AddNewTask("Ivan");
     }
     std::cout << "Ilia's tasks: ";
@@ -178,7 +178,7 @@ int main() {
     TasksInfo updated_tasks, untouched_tasks;
 
     tie(updated_tasks, untouched_tasks) =
-        tasks.PerformPersonTasks("Ivan", 2);
+        tasks.PerformPersonTasks("Ivan", 4);
     std::cout << "Updated Ivan's tasks: ";
     PrintTasksInfo(updated_tasks);
     std::cout << "Untouched Ivan's tasks: ";
